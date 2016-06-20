@@ -1,25 +1,30 @@
 <?php // @codingStandardsIgnoreFile
+
+use Zend\Router\Http\Literal;
+
+use ZF\OAuth2;
+
 return array(
     'controllers' => array(
         'factories' => array(
-            'ZF\OAuth2\Controller\Auth' => 'ZF\OAuth2\Factory\AuthControllerFactory',
+            'ZF\OAuth2\Controller\Auth' => OAuth2\Factory\AuthControllerFactory::class,
         ),
     ),
     'router' => array(
         'routes' => array(
             'oauth' => array(
-                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'type' => Literal::class,
                 'options' => array(
                     'route'    => '/oauth',
                     'defaults' => array(
-                        'controller' => 'ZF\OAuth2\Controller\Auth',
+                        'controller' => OAuth2\Controller\Auth::class,
                         'action'     => 'token',
                     ),
                 ),
                 'may_terminate' => true,
                 'child_routes' => array(
                     'authorize' => array(
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'type' => Literal::class,
                         'options' => array(
                             'route' => '/authorize',
                             'defaults' => array(
@@ -28,7 +33,7 @@ return array(
                         ),
                     ),
                     'resource' => array(
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'type' => Literal::class,
                         'options' => array(
                             'route' => '/resource',
                             'defaults' => array(
@@ -37,7 +42,7 @@ return array(
                         ),
                     ),
                     'code' => array(
-                        'type' => 'Zend\Mvc\Router\Http\Literal',
+                        'type' => Literal::class,
                         'options' => array(
                             'route' => '/receivecode',
                             'defaults' => array(
@@ -51,14 +56,14 @@ return array(
     ),
     'service_manager' => array(
         'aliases' => array(
-            'ZF\OAuth2\Provider\UserId' => 'ZF\OAuth2\Provider\UserId\AuthenticationService',
+            'ZF\OAuth2\Provider\UserId' => OAuth2\Provider\UserId\AuthenticationService::class,
         ),
         'factories' => array(
-            'ZF\OAuth2\Adapter\PdoAdapter'    => 'ZF\OAuth2\Factory\PdoAdapterFactory',
-            'ZF\OAuth2\Adapter\IbmDb2Adapter' => 'ZF\OAuth2\Factory\IbmDb2AdapterFactory',
-            'ZF\OAuth2\Adapter\MongoAdapter'  => 'ZF\OAuth2\Factory\MongoAdapterFactory',
-            'ZF\OAuth2\Provider\UserId\AuthenticationService' => 'ZF\OAuth2\Provider\UserId\AuthenticationServiceFactory',
-            'ZF\OAuth2\Service\OAuth2Server'  => 'ZF\OAuth2\Factory\OAuth2ServerFactory'
+            'ZF\OAuth2\Adapter\PdoAdapter'    => OAuth2\Factory\PdoAdapterFactory::class,
+            'ZF\OAuth2\Adapter\IbmDb2Adapter' => OAuth2\Factory\IbmDb2AdapterFactory::class,
+            'ZF\OAuth2\Adapter\MongoAdapter'  => OAuth2\Factory\MongoAdapterFactory::class,
+            'ZF\OAuth2\Provider\UserId\AuthenticationService' => OAuth2\Provider\UserId\AuthenticationServiceFactory::class,
+            'ZF\OAuth2\Service\OAuth2Server'  => OAuth2\Factory\OAuth2ServerFactory::class
         )
     ),
     'view_manager' => array(

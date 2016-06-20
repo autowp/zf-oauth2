@@ -1,5 +1,5 @@
 {
-    "name": "zfcampus/zf-oauth2",
+    "name": "autowp/zf-oauth2",
     "description": "ZF2 module for implementing an OAuth2 server",
     "license": "BSD-3-Clause",
     "keywords": [
@@ -22,10 +22,10 @@
         "bshaffer/oauth2-server-php": "~1.7",
         "zendframework/zend-crypt": "~2.3",
         "zendframework/zend-http": "~2.3",
-        "zendframework/zend-mvc": "~2.3",
-        "zendframework/zend-servicemanager": "~2.3",
-        "zfcampus/zf-api-problem": "~1.0",
-        "zfcampus/zf-content-negotiation": "~1.0"
+        "zendframework/zend-mvc": "~3.0",
+        "zendframework/zend-servicemanager": "^3.0",
+        "autowp/zf-api-problem": "^1.0",
+        "autowp/zf-content-negotiation": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.7",

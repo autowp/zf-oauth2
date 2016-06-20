@@ -10,22 +10,18 @@ use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 use ZF\OAuth2\Adapter\PdoAdapter;
 use ZF\OAuth2\Controller\Exception;
+use Interop\Container\ContainerInterface;
 
 class PdoAdapterFactory implements FactoryInterface
 {
-    /**
-     * @param ServiceLocatorInterface $services
-     * @throws \ZF\OAuth2\Controller\Exception\RuntimeException
-     * @return \ZF\OAuth2\Adapter\PdoAdapter
-     */
-    public function createService(ServiceLocatorInterface $services)
+    public function __invoke(ContainerInterface $container, $requestedName, array $options = null)
     {
-        $config = $services->get('Config');
+        $config = $container->get('Config');
 
         if (!isset($config['zf-oauth2']['db']) || empty($config['zf-oauth2']['db'])) {
             throw new Exception\RuntimeException(
-                'The database configuration [\'zf-oauth2\'][\'db\'] for OAuth2 is missing'
-            );
+                    'The database configuration [\'zf-oauth2\'][\'db\'] for OAuth2 is missing'
+                    );
         }
 
         $username = isset($config['zf-oauth2']['db']['username']) ? $config['zf-oauth2']['db']['username'] : null;
@@ -43,5 +39,15 @@ class PdoAdapterFactory implements FactoryInterface
             'password' => $password,
             'options'  => $options,
         ], $oauth2ServerConfig);
+    }
+
+    /**
+     * @param ServiceLocatorInterface $services
+     * @throws \ZF\OAuth2\Controller\Exception\RuntimeException
+     * @return \ZF\OAuth2\Adapter\PdoAdapter
+     */
+    public function createService(ServiceLocatorInterface $services)
+    {
+        return $this($services, PdoAdapterFactory::class);
     }
 }
