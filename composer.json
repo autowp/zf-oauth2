@@ -1,5 +1,5 @@
 {
-    "name": "autowp/zf-oauth2",
+    "name": "zfcampus/zf-oauth2",
     "description": "ZF2 module for implementing an OAuth2 server",
     "license": "BSD-3-Clause",
     "keywords": [
